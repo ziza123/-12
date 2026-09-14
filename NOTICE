@@ -1,0 +1,79 @@
+Qyran — атрибуция сторонних материалов
+======================================
+
+Этот файл перечисляет чужие материалы, использованные в проекте, и то, что
+именно с ними сделано. Он существует, потому что часть содержимого репозитория
+— производный материал, а не собственная работа авторов Qyran.
+
+
+1. SLOVO — Russian Sign Language Dataset
+----------------------------------------
+
+Правообладатель: SaluteDevices (Kapitanov A., Kvanchiani K., Nagaev A.,
+Petrova E.)
+Источник:        https://github.com/hukenovs/slovo
+Лицензия:        вариант Creative Commons Attribution-ShareAlike 4.0
+                 International (CC BY-SA 4.0), см. license/ в репозитории
+                 источника.
+
+Что взято:
+  * видеоданные датасета (20 400 клипов, 1001 класс, 194 жестикулянта) —
+    использованы для извлечения ландмарок и обучения распознавателя;
+  * ландмарки MediaPipe Holistic, полученные из этих видео.
+
+Что изменено:
+  * ландмарки канонизированы в 319-мерное представление (ml/features.py);
+  * на них обучена модель распознавания (ml/train_rsl.py, ml/model_def.py);
+  * 966 клипов ретаргетированы на скелет 3D-аватара и лежат в
+    public/gestures/slovo/*.json — это ПРОИЗВОДНЫЙ материал от SLOVO,
+    полученный преобразованием ml/retarget.py и src/lib/retarget.ts.
+
+Цитирование, как просят авторы:
+
+    @inproceedings{kapitanov2023slovo,
+        title={Slovo: Russian Sign Language Dataset},
+        author={Kapitanov, Alexander and Karina, Kvanchiani and
+                Nagaev, Alexander and Elizaveta, Petrova},
+        booktitle={International Conference on Computer Vision Systems},
+        pages={63--73},
+        year={2023},
+        organization={Springer}
+    }
+
+ОТКРЫТЫЙ ВОПРОС, который авторы Qyran обязаны закрыть до коммерческого
+использования: условие ShareAlike распространяется на производный материал.
+Это значит, что public/gestures/slovo/ и, вероятно, веса модели должны
+распространяться на условиях, совместимых с CC BY-SA 4.0. Юридическая
+проверка не проводилась. До её завершения проект не следует считать
+готовым к закрытому коммерческому распространению.
+
+
+2. Аватар
+---------
+
+public/avatar.glb — 3D-модель: голова сгенерирована Hyper3D Rodin, тело и
+скелет на основе рига Mixamo (Adobe). Условия использования Mixamo и Rodin
+должны быть проверены отдельно перед коммерческим использованием.
+
+
+3. Библиотеки
+-------------
+
+Зависимости из package.json распространяются под собственными лицензиями
+(MIT, Apache-2.0 и др.), см. node_modules/*/LICENSE после установки.
+Отдельно отмечены ключевые:
+
+  * MediaPipe Holistic (Google) — Apache-2.0
+  * TensorFlow.js (Google) — Apache-2.0
+  * three.js — MIT
+  * React, Vite — MIT
+
+
+4. Что является собственной работой авторов Qyran
+--------------------------------------------------
+
+  * весь код в src/ и scripts/, кроме явно помеченных заимствований;
+  * конвейер обучения и оценки в ml/;
+  * процедурный словарь жестов (src/lib/signWords.ts, src/lib/dactyl.ts);
+  * решатель позы для живого захвата (src/lib/poseSolver.ts);
+  * правила перевода фразы в жестовый порядок (src/lib/glossing.ts).
