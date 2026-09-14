@@ -14,8 +14,8 @@ export interface LoadedAvatar {
  */
 export type AvatarId = 'adam' | 'eva';
 export const AVATARS: Record<AvatarId, { url: string }> = {
-  adam: { url: '/avatar.glb' },
-  eva: { url: '/avatar_eva.glb' },
+  adam: { url: import.meta.env.VITE_AVATAR_ADAM_URL ?? '' },
+  eva: { url: import.meta.env.VITE_AVATAR_EVA_URL ?? '' },
 };
 
 const AVATAR_STORAGE_KEY = 'qyran.avatar';

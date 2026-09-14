@@ -25,8 +25,10 @@ const ENDINGS = [
 
 export async function loadSlovoIndex(): Promise<SlovoIndex | null> {
   if (indexCache) return indexCache;
+  const indexUrl = import.meta.env.VITE_GESTURES_INDEX_URL;
+  if (!indexUrl) return null;
   try {
-    const res = await fetch('/gestures/slovo/index.json');
+    const res = await fetch(indexUrl);
     if (!res.ok) return null;
     indexCache = await res.json();
     phraseByLen = new Map();
